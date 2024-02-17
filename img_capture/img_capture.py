@@ -5,7 +5,6 @@ from rclpy.node import Node
 import cv2
 from cv_bridge import CvBridge
 from sensor_msgs.msg import Image
-from core.msg import ControlData
 import os
 
 class CameraFeedNode(Node):
@@ -23,20 +22,16 @@ class CameraFeedNode(Node):
 
         # Subscribers
         self.camera_subscriber = self.create_subscription(Image, "screenshots", self.img_callback, 10)
-        self.control_subscriber = self.create_subscription(ControlData, "control", self.control_callback, 10)
 
     def img_callback(self, screenshot):
         img = self.bridge.imgmsg_to_cv2(screenshot, desired_encoding="passthrough")
-        if self.coralMode:
-            cropped_img = img[30:720, 0:880]
-            cv2.imwrite("{}/coral/{}.png".format(self.path, self.coralCount), cropped_img)
-            self.coralCount += 1
-        else:
-            cv2.imwrite("{}/{}.png".format(self.path, self.count), img)
-            self.count +=  1
-    
-    def control_callback(self, control: ControlData):
-        self.coralMode = control.coral
+        #if self.coralMode:
+         #   cropped_img = img[30:720, 0:880]
+          #  cv2.imwrite("{}/coral/{}.png".format(self.path, self.coralCount), cropped_img)
+          #  self.coralCount += 1
+        #else:
+        cv2.imwrite("{}/{}.png".format(self.path, self.count), img)
+        self.count +=  1
 
 def main(args=None):
     rclpy.init(args=args)
