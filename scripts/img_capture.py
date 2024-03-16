@@ -10,9 +10,9 @@ def main(args=None):
     node = ImageCaptureNode()
 
     # Delete prior images
-    try: os.system("rm {}/*.png".format(node.path))
+    try: os.system("del {}\other\*.png".format(node.path))
     except: pass
-    try: os.system("rm {}/coral/*.png".format(node.path))
+    try: os.system("del {}\coral\*.png".format(node.path))
     except:pass
     
     rclpy.spin(node)
