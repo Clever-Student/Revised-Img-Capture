@@ -10,10 +10,14 @@ def main(args=None):
     node = ImageCaptureNode()
 
     # Delete prior images
-    try: os.system("del {}\other\*.png".format(node.path))
-    except: pass
-    try: os.system("del {}\coral\*.png".format(node.path))
-    except:pass
+    path_to_photos = "C:\jhsrobo\img_capture\img"
+    if not os.path.exists(path_to_photos):
+        os.makedirs(path_to_photos)
+    else:
+        try: os.system("del {}\other\*.png".format(node.path))
+        except: pass
+        try: os.system("del {}\coral\*.png".format(node.path))
+        except:pass
     
     rclpy.spin(node)
 
